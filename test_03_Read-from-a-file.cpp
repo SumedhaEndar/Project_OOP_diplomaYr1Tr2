@@ -3,6 +3,9 @@
 #include <string>
 using namespace std;
 
+// Reading from a file can also be performed in 
+// the same way that we did with cin:
+
 int main () 
 {
   string line;
