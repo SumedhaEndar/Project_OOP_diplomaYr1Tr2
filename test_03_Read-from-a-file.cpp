@@ -9,7 +9,7 @@ using namespace std;
 int main () 
 {
   string line;
-  ifstream myfile ("example.txt");
+  ifstream myfile ("testing_file_1.txt");
   
   if (myfile.is_open())
   {
