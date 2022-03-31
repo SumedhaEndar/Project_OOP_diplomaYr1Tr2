@@ -7,12 +7,13 @@ using namespace std;
 
 int main () 
 {
-  ofstream myfile ("example.txt");
+  ofstream myfile ("testing_file_1.txt");
   
   if (myfile.is_open())
 	{
 		myfile << "This is a line.\n";
 		myfile << "This is another line.\n";
+		myfile << "This is final line.\n";
 		myfile.close();
 	}
   
