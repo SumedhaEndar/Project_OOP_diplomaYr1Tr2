@@ -76,6 +76,8 @@ class Page
 		}
 };
 
+
+
 int main()
 {
 	Page *page;
@@ -105,13 +107,13 @@ int main()
 			cout << " Press Space to the Home Page";
 		}
 		
-		
 		getch();
 		system("cls");
 		
 		delete page;
 			
 	} while(menu_selection != 7);	
+	
 	
 	return 0;
 }
