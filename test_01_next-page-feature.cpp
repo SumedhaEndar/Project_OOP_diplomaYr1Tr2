@@ -25,7 +25,7 @@ class Page
 			cout << " ******************************************************" << endl;
 		}
 		
-		void setMenu(int m)
+		void setMenu(int &m)    // pass by reference using reference arguments
 		{
 			menu = m;
 		}
