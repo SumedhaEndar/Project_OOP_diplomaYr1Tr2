@@ -1,5 +1,7 @@
 #include<iostream>
 #include<iomanip>
+#include <conio.h>
+
 using namespace std;
 
 class Page
@@ -10,7 +12,17 @@ class Page
 	public:
 		Page()
 		{
-			menu = 0;
+			cout << " " << endl;
+			cout << "\t\t TL3L Group 4 Sdn Bhd" << endl;
+			cout << " ******************************************************" << endl;
+			cout << " [1] Register New Employee(s) " << endl;
+			cout << " [2] Search Employee Details " << endl;
+			cout << " [3] Update Contact Number " << endl;
+			cout << " [4] Update Employees' Details " << endl;
+			cout << " [5] Calculate Employees' Salary " << endl;
+			cout << " [6] Fire Employees' Salary " << endl;
+			cout << " [7] End Program " << endl;
+			cout << " ******************************************************" << endl;
 		}
 		
 		void setMenu(int m)
@@ -20,22 +32,7 @@ class Page
 		
 		void display()
 		{
-			if(menu == 0)
-			{
-				cout << " " << endl;
-				cout << "\t\t TL3L Group 4 Sdn Bhd" << endl;
-				cout << " ******************************************************" << endl;
-				cout << " [1] Register New Employee(s) " << endl;
-				cout << " [2] Search Employee Details " << endl;
-				cout << " [3] Update Contact Number " << endl;
-				cout << " [4] Update Employees' Details " << endl;
-				cout << " [5] Calculate Employees' Salary " << endl;
-				cout << " [6] Fire Employees' Salary " << endl;
-				cout << " [7] End Program " << endl;
-				cout << " ******************************************************" << endl;
-			}
-			
-			else if(menu == 1)
+			if(menu == 1)
 			{
 				cout << " " << endl;
 				cout << "\t\t Register New Employee(s)" << endl;
@@ -82,17 +79,37 @@ class Page
 int main()
 {
 	Page *page;
-	page = new Page;
+	
 	
 	int menu_selection = 0;
 	
 	do
 	{
-		page->display();
+		page = new Page;
+		
 		cout << " Enter Menu Selection : ";
 		cin >> menu_selection;
 		
+		system("cls");
 		page->setMenu(menu_selection);
+		page->display();
+		
+		
+		
+		if(menu_selection == 7)
+		{
+			cout << " Thank you for using this Program"; 
+		}
+		else
+		{
+			cout << " Press Space to the Home Page";
+		}
+		
+		
+		getch();
+		system("cls");
+		
+		delete page;
 			
 	} while(menu_selection != 7);	
 	
