@@ -2,6 +2,9 @@
 #include <fstream>
 using namespace std;
 
+/// Writing operations on text files are performed 
+//  in the same way we operated with cout:
+
 int main () 
 {
   ofstream myfile ("example.txt");
