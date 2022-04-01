@@ -58,18 +58,52 @@ class Employee
 			}
 		}
 		
+	friend void writeData(Employee *);
+		
 };
+
+
+void writeData(Employee *Emp)
+{
+	ofstream outData;
+	outData.open("testing_file_3.txt",std::ios_base::app);
+	if(outData.is_open())
+	{
+		outData << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
+					Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
+					Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
+		outData.close();
+	}
+	
+	else
+	{
+		cout << " Unable to Open File " << endl;	
+	}
+}
 
 int main()
 {
 	Employee *Emp;
+	ofstream outData;
 	
-	Emp = new Employee;
+	char repeat = 'Y';
 	
-	Emp->setDetails();
-	Emp->calAge();
+	do
+	{
+		Emp = new Employee;
 	
-	delete Emp;
+		Emp->setDetails();
+		Emp->calAge();
+	
+		writeData(Emp);
+		
+		delete Emp;
+		
+		cout << " Continue Registering a New Employee ? : ";
+		cin >> repeat;
+	} while(repeat == 'Y');
+	
+	
 	
 	return 0;
 }
