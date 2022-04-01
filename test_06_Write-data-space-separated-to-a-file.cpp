@@ -65,26 +65,46 @@ class Employee
 
 void writeData(Employee *Emp)
 {
-	ofstream outData;
-	outData.open("testing_file_3.txt",std::ios_base::app);
-	if(outData.is_open())
-	{
-		outData << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
-					Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
-					Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
-		outData.close();
-	}
+	ofstream Exe_Data, Blue_Data;
 	
+	if(Emp->jobType == 1)
+	{
+		Exe_Data.open("Exe_Data.txt",std::ios_base::app); // append write in -- won't clear the previous one
+		if(Exe_Data.is_open())
+		{
+			Exe_Data << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
+						Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
+						Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
+			Exe_Data.close();
+		}
+		
+		else
+		{
+			cout << " Unable to Open File " << endl;	
+		}
+	}
 	else
 	{
-		cout << " Unable to Open File " << endl;	
+		Blue_Data.open("Blue_Data.txt",std::ios_base::app); // append write in -- won't clear the previous one
+		if(Blue_Data.is_open())
+		{
+			Blue_Data << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
+						Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
+						Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
+			Blue_Data.close();
+		}
+		
+		else
+		{
+			cout << " Unable to Open File " << endl;	
+		}
 	}
+	
 }
 
 int main()
 {
 	Employee *Emp;
-	ofstream outData;
 	
 	char repeat = 'Y';
 	
@@ -99,8 +119,11 @@ int main()
 		
 		delete Emp;
 		
+		cout << " " << endl;
 		cout << " Continue Registering a New Employee ? : ";
 		cin >> repeat;
+		cout << " " << endl;
+		
 	} while(repeat == 'Y');
 	
 	
