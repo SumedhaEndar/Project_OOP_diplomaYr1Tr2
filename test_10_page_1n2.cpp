@@ -163,6 +163,38 @@ class Executive : public Employee
 };
 
 
+class BlueCollar : public Employee
+{
+	private:
+		float OT_rate;
+		
+	public:
+		BlueCollar()
+		{
+			OT_rate = 2.0;
+			initial_salary = 1400;
+			d = 50;
+			base_salary = 0;
+			nett_salary = 0;
+		}
+		
+		void A_P_calculation()
+		{
+			base_salary = initial_salary + ((exp)*(d));
+		}
+		
+		void display_base_salary()
+		{
+			A_P_calculation();
+			cout << fixed;
+			cout << " Base Salary\t: RM " << setprecision(2) << base_salary << endl;
+			cout << " " << endl;
+			cout << " " << endl;
+		}
+		
+		
+};
+
 class Page
 {
 	private:
@@ -172,6 +204,7 @@ class Page
 		string which_file, line;;
 		Employee *Emp;
 		Executive *Exec;
+		BlueCollar *Blue;
 		
 		// Troublesome parts !!!!
 		int emp_jobType, emp_id, emp_exp, emp_age, compare_id;
@@ -241,46 +274,88 @@ class Page
 				if(compare_id<2000)
 				{
 					which_file = "Exe_Data.txt";
-				}
 				
-				numOfLines(which_file);
-				Exec = new Executive[num_of_lines];
-				
-				ifstream myfile(which_file);
-				
-				if(myfile.is_open())
-				{
-					for(int i=0; i<num_of_lines; i++)
+					numOfLines(which_file);
+					Exec = new Executive[num_of_lines];
+					
+					ifstream myfile(which_file);
+					
+					if(myfile.is_open())
 					{
-						myfile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
-					    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
-					    
-					    if(compare_id == emp_id)
-					    {
-					    	Exec[i].setId(emp_id);
-					    	Exec[i].setName(emp_name);
-					    	Exec[i].setAge(emp_age);
-					    	Exec[i].setDOB(emp_dob);
-					    	Exec[i].setContact(emp_contact);
-					    	Exec[i].setEdu(emp_edu);
-					    	Exec[i].setExp(emp_exp);
-					    	Exec[i].setDateIn(emp_date_in);
-					    	Exec[i].display();
-					    	Exec[i].display_base_salary();
-					    	
-					    	compare_id = 0;
+						for(int i=0; i<num_of_lines; i++)
+						{
+							myfile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
+						    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
+						    
+						    if(compare_id == emp_id)
+						    {
+						    	Exec[i].setId(emp_id);
+						    	Exec[i].setName(emp_name);
+						    	Exec[i].setAge(emp_age);
+						    	Exec[i].setDOB(emp_dob);
+						    	Exec[i].setContact(emp_contact);
+						    	Exec[i].setEdu(emp_edu);
+						    	Exec[i].setExp(emp_exp);
+						    	Exec[i].setDateIn(emp_date_in);
+						    	Exec[i].display();
+						    	Exec[i].display_base_salary();
+						    	
+						    	compare_id = 0;
+							}
 						}
+						delete [] Exec;
+						myfile.close();					
 					}
-					delete [] Exec;
-					myfile.close();					
+				
+					else
+					{
+						cout << " " << endl;
+						cout << " Unable to Open File " << endl;
+					}
 				}
-			
+				
 				else
 				{
-					cout << " " << endl;
-					cout << " Unable to Open File " << endl;
-				}
+					which_file = "Blue_Data.txt";
 				
+					numOfLines(which_file);
+					Blue = new BlueCollar[num_of_lines];
+					
+					ifstream myfile(which_file);
+					
+					if(myfile.is_open())
+					{
+						for(int i=0; i<num_of_lines; i++)
+						{
+							myfile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
+						    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
+						    
+						    if(compare_id == emp_id)
+						    {
+						    	Blue[i].setId(emp_id);
+						    	Blue[i].setName(emp_name);
+						    	Blue[i].setAge(emp_age);
+						    	Blue[i].setDOB(emp_dob);
+						    	Blue[i].setContact(emp_contact);
+						    	Blue[i].setEdu(emp_edu);
+						    	Blue[i].setExp(emp_exp);
+						    	Blue[i].setDateIn(emp_date_in);
+						    	Blue[i].display();
+						    	Blue[i].display_base_salary();
+						    	
+						    	compare_id = 0;
+							}
+						}
+						delete [] Blue;
+						myfile.close();					
+					}
+				
+					else
+					{
+						cout << " " << endl;
+						cout << " Unable to Open File " << endl;
+					}
+				}
 				
 			}
 			
