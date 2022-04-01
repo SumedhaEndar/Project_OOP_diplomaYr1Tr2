@@ -16,27 +16,27 @@ class Employee
 	public:
 		void setDetails()
 		{		
-			cout << " Enter Job Type\t: ";
+			cout << " Enter Job Type\t\t: ";
 			cin >> jobType;
-			cout << " Enter ID\t: ";
+			cout << " Enter ID\t\t: ";
 			cin >> id;
 			
 			cin.ignore();
 			
-			cout << " Enter Name\t: ";
+			cout << " Enter Name\t\t: ";
 			getline(cin,name);
-			cout << " Enter D.O.B\t: ";
+			cout << " Enter D.O.B\t\t: ";
 			getline(cin,dob);
 			cout << " Enter Contact Number\t: ";
 			getline(cin,contact_num);
 			cout << " Enter Education Level\t: ";
 			getline(cin,edu_level);
-			cout << " Enter Years of Experience\t: ";
+			cout << " Enter Years of Exp\t: ";
 			cin >> exp;
 			
 			cin.ignore();
 			
-			cout << " Enter Date-In\t: ";
+			cout << " Enter Date-In\t\t: ";
 			getline(cin,date_in);	
 		}
 		
@@ -99,6 +99,10 @@ class Page
 				cout << " " << endl;
 				cout << "\t\t Register New Employee(s)" << endl;
 				cout << " ******************************************************" << endl;
+				
+				cout << " [1] Executive" << endl;
+				cout << " [2] Blue Collar" << endl;
+				cout << " " << endl;
 				
 				do
 				{
