@@ -247,6 +247,7 @@ class BlueCollar : public Employee
 		
 };
 
+
 class Page
 {
 	private:
