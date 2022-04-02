@@ -302,7 +302,7 @@ class BlueCollar : public Employee
 		
 		void calcRoughSalary()
 		{
-			rough_salary = salary + OT_pay;
+			rough_salary = base_salary + OT_pay;
 		}
 		
 		void ERF_Socso()
@@ -333,6 +333,11 @@ class BlueCollar : public Employee
 		float get_NettSalary()
 		{
 			return nett_salary;
+		}
+		
+		float get_OtPay()
+		{
+			return OT_pay;
 		}
 };
 
@@ -668,12 +673,14 @@ class Page
 				
 				ofstream outfile("Salary.txt");
 				
-				round = 1;
+				round = 2;
 				
 				for(int j=0; j<round; j++)
 				{
 					if(j==0)
 					{
+						num_of_lines = 0;
+						
 						which_file = "Exe_Data.txt";
 						numOfLines(which_file);
 						
@@ -727,17 +734,17 @@ class Page
 									    << setw(10) << setprecision(2) << "RM" << Exec[i].get_NettSalary() << "\n"; 
 							}
 						}
-						
-						num_of_lines = 0;
 						delete [] Exec;
 					}
 					
 					else
 					{
+						num_of_lines = 0;
+						
 						which_file = "Blue_Data.txt";
 						numOfLines(which_file);
 						
-						Blue = new BlueCollar[numOfLines];
+						Blue = new BlueCollar[num_of_lines];
 						
 						ifstream infile(which_file);
 						if(infile.is_open())
@@ -760,11 +767,40 @@ class Page
 								cout << " ID\t\t: " << Blue[i].getId() << endl;
 								cout << " Name\t\t: " << Blue[i].getName() << endl;
 								cout << " Base Salary\t: RM" << setw(8) << setprecision(2) << Blue[i].get_BaseSalary() << endl;
-								Blue[i].setBonus();
+								Blue[i].set_OtHours();
+								
+								Blue[i].calcOtPay();
+								Blue[i].calcRoughSalary();
+								Blue[i].ERF_Socso();
+								Blue[i].calcNett();
+								
+								cout << " Total OT Pay\t: RM" << setw(8) << setprecision(2) << Blue[i].get_OtPay() << endl;
+								cout << " Rough Salary\t: RM" << setw(8) << setprecision(2) << Blue[i].get_RoughSalary() << endl;
+								cout << " EPF Socso (9%)\t: RM" << setw(8) << setprecision(2) << Blue[i].get_EpfSocso() << endl;
+								cout << " Nett Salary\t: RM" << setw(8) << setprecision(2) << Blue[i].get_NettSalary() << endl;
+								
+								cout << " " << endl;
+								cout << " " << endl;
+							}
+							
 						}
+						infile.close();
+						
+						if(outfile.is_open())
+						{
+							for(int i=0; i<num_of_lines; i++)
+							{
+								outfile << fixed;
+								outfile << setw(3) << Blue[i].getJobType() << setw(6) << Blue[i].getId() 
+										<< setw(10) << Blue[i].getName()
+										<<setw(8) << setprecision(2) << "RM" << Blue[i].get_EpfSocso()
+									    << setw(10) << setprecision(2) << "RM" << Blue[i].get_NettSalary() << "\n"; 
+							}
+						}
+						delete [] Blue;
 					}
 				}
-				
+				outfile.close();
 			}
 			
 			else if(menu == 6)
