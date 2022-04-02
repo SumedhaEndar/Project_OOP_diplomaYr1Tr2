@@ -61,6 +61,11 @@ class Employee
 			}
 		}
 		
+		void calcExp()
+		{
+			exp = year - start_work_year;
+		}
+		
 		void setJobType(int &set_jobType)
 		{
 			jobType = set_jobType;
@@ -120,7 +125,7 @@ class Employee
 			cout << " D.O.B\t\t: " << dob << endl;
 			cout << " Education Level: " << edu_level << endl;
 			cout << " Years of Exp\t: " << exp << endl;
-			cout << " Start Work Year : " << start_work_year << endl;
+			cout << " Start Work Year: " << start_work_year << endl;
 			cout << " " << endl;
 		}
 		
@@ -299,6 +304,7 @@ class Page
 					Emp = new Employee;
 					Emp->setDetails();
 					Emp->calAge();
+					Emp->calcExp();
 					
 					writeData(Emp);
 					
@@ -345,7 +351,7 @@ class Page
 						    	Exec[i].setContact(emp_contact);
 						    	Exec[i].setEdu(emp_edu);
 						    	Exec[i].setExp(emp_exp);
-						    	Exec[i].setDateIn(emp_date_in);
+						    	Exec[i].setStartWork(emp_start_work);
 						    	Exec[i].display();
 						    	Exec[i].display_base_salary();
 						    	
@@ -377,7 +383,7 @@ class Page
 						for(int i=0; i<num_of_lines; i++)
 						{
 							myfile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
-						    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
+						    emp_contact >> emp_edu >> emp_exp >> emp_start_work;
 						    
 						    if(compare_id == emp_id)
 						    {
@@ -388,7 +394,7 @@ class Page
 						    	Blue[i].setContact(emp_contact);
 						    	Blue[i].setEdu(emp_edu);
 						    	Blue[i].setExp(emp_exp);
-						    	Blue[i].setDateIn(emp_date_in);
+						    	Blue[i].setStartWork(emp_start_work);
 						    	Blue[i].display();
 						    	Blue[i].display_base_salary();
 						    	
@@ -437,7 +443,7 @@ class Page
 					for(int i=0; i<num_of_lines; i++)
 					{
 						infile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
-					    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
+					    emp_contact >> emp_edu >> emp_exp >> emp_start_work;
 					    
 					    Emp[i].setJobType(emp_jobType);
 					    Emp[i].setId(emp_id);
@@ -447,7 +453,7 @@ class Page
 				    	Emp[i].setContact(emp_contact);
 				    	Emp[i].setEdu(emp_edu);
 				    	Emp[i].setExp(emp_exp);
-				    	Emp[i].setDateIn(emp_date_in);
+				    	Emp[i].setStartWork(emp_start_work);
 				    	
 				    	// Search Data
 				    	if(compare_id == Emp[i].getId())
@@ -482,7 +488,7 @@ class Page
 					{
 						outfile <<Emp[i].getJobType() << " "<< Emp[i].getId() << " " << Emp[i].getName() << " "
 						<< Emp[i].getDOB() << " " << Emp[i].getAge() << " " << Emp[i].getContact() << " " 
-						<< Emp[i].getEdu() << " " << Emp[i].getExp() << " " << Emp[i].getDateIn() << "\n";
+						<< Emp[i].getEdu() << " " << Emp[i].getExp() << " " << Emp[i].getStartWork() << "\n";
 					}
 				}
 				
@@ -491,14 +497,13 @@ class Page
 				// End -- Write new update Data to the file
 			}
 			
-			
 			else if(menu == 4)
 			{	
 				cout << " " << endl;
 				cout << "\t\t Update Employees' Details" << endl;
 				cout << " ******************************************************" << endl;
 				cout << " This Program will automatically update the Employees'" << endl;
-				cout << " based on their D.O.B and their Date In." << endl;
+				cout << " based on their D.O.B and their Start Work Year." << endl;
 				cout << " " << endl;
 				cout << " Enter Year\t: ";
 				cin >> compare_year;
@@ -509,23 +514,22 @@ class Page
 				{
 					if(j==0)
 					{
-						which_file = "try_Exe_Data.txt";
+						which_file = "Exe_Data.txt";
 					}
 					else if(j==1)
 					{
-						which_file = "try_Blue_Data.txt";
+						which_file = "Blue_Data.txt";
 					}
 					
 					numOfLines(which_file);
 					Emp = new Employee[num_of_lines];
 					ifstream infile(which_file);
-					cout << num_of_lines << endl;
 					if(infile.is_open())
 					{
 						for(int i=0; i<num_of_lines; i++)
 						{
 							infile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
-							emp_contact >> emp_edu >> emp_exp >> emp_date_in; 
+							emp_contact >> emp_edu >> emp_exp >> emp_start_work; 
 							
 							Emp[i].setJobType(emp_jobType);
 						    Emp[i].setId(emp_id);
@@ -535,9 +539,10 @@ class Page
 					    	Emp[i].setContact(emp_contact);
 					    	Emp[i].setEdu(emp_edu);
 					    	Emp[i].setExp(emp_exp);
-					    	Emp[i].setDateIn(emp_date_in);
+					    	Emp[i].setStartWork(emp_start_work);
 					    	Emp[i].setYear(compare_year);
 					    	Emp[i].calAge();
+					    	Emp[i].calcExp();
 						}
 					}
 					infile.close();
@@ -550,7 +555,7 @@ class Page
 						{
 							outfile << Emp[i].getJobType() << " "<< Emp[i].getId() << " " << Emp[i].getName() << " "
 							<< Emp[i].getDOB() << " " << Emp[i].getAge() << " " << Emp[i].getContact() << " " 
-							<< Emp[i].getEdu() << " " << Emp[i].getExp() << " " << Emp[i].getDateIn() << "\n";
+							<< Emp[i].getEdu() << " " << Emp[i].getExp() << " " << Emp[i].getStartWork() << "\n";
 						}
 					}
 					outfile.close();
@@ -558,6 +563,11 @@ class Page
 					delete [] Emp;
 				}
 				
+				cout << " " << endl;
+				cout << " " << endl;
+				cout << " Finish Update " << endl;
+				cout << " " << endl;
+				cout << " " << endl;
 			}
 			
 			else if(menu == 5)
@@ -609,7 +619,7 @@ void writeData(Employee *Emp)
 		{
 			Exe_Data << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
 						Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
-						Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
+						Emp->edu_level << " " << Emp->exp << " " << Emp->start_work_year << "\n";
 			Exe_Data.close();
 		}
 		
@@ -625,7 +635,7 @@ void writeData(Employee *Emp)
 		{
 			Blue_Data << Emp->jobType << " " << Emp->id << " " << Emp->name <<" " <<
 						Emp->dob << " " << Emp->age << " " << Emp->contact_num << " " <<
-						Emp->edu_level << " " << Emp->exp << " " << Emp->date_in << "\n";
+						Emp->edu_level << " " << Emp->exp << " " << Emp->start_work_year << "\n";
 			Blue_Data.close();
 		}
 		
