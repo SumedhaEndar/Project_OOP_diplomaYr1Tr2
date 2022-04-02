@@ -620,6 +620,8 @@ class Page
 				cout << "\t\t Calculate Employees' Salary" << endl;
 				cout << " ******************************************************" << endl;
 				
+				ofstream outfile("Salary.txt");
+				
 				round = 1;
 				
 				for(int j=0; j<round; j++)
@@ -651,22 +653,34 @@ class Page
 								cout << " Job Type\t: " << Exec[i].getJobType() << endl;
 								cout << " ID\t\t: " << Exec[i].getId() << endl;
 								cout << " Name\t\t: " << Exec[i].getName() << endl;
-								cout << " Base Salary\t: RM " << setprecision(2) << Exec[i].get_BaseSalary() << endl;
+								cout << " Base Salary\t: RM" << setw(8) << setprecision(2) << Exec[i].get_BaseSalary() << endl;
 								Exec[i].setBonus();
 								
 								Exec[i].calcRoughSalary();
 								Exec[i].EPF_Socso();
 								Exec[i].calcNett();
 								
-								cout << " Rough Salary\t: RM " << setprecision(2) << Exec[i].get_RoughSalary() << endl;
-								cout << " EPF Socso (9%)\t: RM " << setprecision(2) << Exec[i].get_EpfSocso() << endl;
-								cout << " Nett Salary\t: RM " << setprecision(2) << Exec[i].get_NettSalary() << endl;
+								cout << " Rough Salary\t: RM" << setw(8) << setprecision(2) << Exec[i].get_RoughSalary() << endl;
+								cout << " EPF Socso (9%)\t: RM" << setw(8) << setprecision(2) << Exec[i].get_EpfSocso() << endl;
+								cout << " Nett Salary\t: RM" << setw(8) << setprecision(2) << Exec[i].get_NettSalary() << endl;
 								
 								cout << " " << endl;
 								cout << " " << endl;
 							}
 						}
 						infile.close();
+						
+						if(outfile.is_open())
+						{
+							for(int i=0; i<num_of_lines; i++)
+							{
+								outfile << fixed;
+								outfile << setw(3) << Exec[i].getJobType() << setw(6) << Exec[i].getId() 
+										<< setw(10) << Exec[i].getName()
+										<<setw(8) << setprecision(2) << "RM" << Exec[i].get_EpfSocso()
+									    << setw(10) << setprecision(2) << "RM" << Exec[i].get_NettSalary() << "\n"; 
+							}
+						}
 					}
 				}
 				
