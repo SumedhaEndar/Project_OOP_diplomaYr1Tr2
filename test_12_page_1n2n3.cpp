@@ -459,11 +459,6 @@ class Page
 							// End -- Search Data
 						}
 					}
-										
-					else
-					{
-						cout << " Unable to Open File " << endl;
-					}
 					
 					infile.close();
 					// End -- Read Data From a File and Store It
@@ -482,13 +477,77 @@ class Page
 						}
 					}
 					
-					else
+					outfile.close();
+					delete [] Exec;
+					// End -- Write new update Data to the file
+				}
+				
+				else
+				{
+					which_file = "Blue_Data.txt";
+				
+					numOfLines(which_file);
+					Blue = new BlueCollar[num_of_lines];
+					
+					// Read Data From a File and Store It
+					ifstream infile(which_file);
+					
+					if(infile.is_open())
 					{
-						cout << " Unable to Open File " << endl;
+						for(int i=0; i<num_of_lines; i++)
+						{
+							infile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
+						    emp_contact >> emp_edu >> emp_exp >> emp_date_in;
+						    
+						    Blue[i].setJobType(emp_jobType);
+						    Blue[i].setId(emp_id);
+						    Blue[i].setName(emp_name);
+					    	Blue[i].setAge(emp_age);
+					    	Blue[i].setDOB(emp_dob);
+					    	Blue[i].setContact(emp_contact);
+					    	Blue[i].setEdu(emp_edu);
+					    	Blue[i].setExp(emp_exp);
+					    	Blue[i].setDateIn(emp_date_in);
+					    	
+					    	// Search Data
+					    	if(compare_id == Blue[i].getId())
+					    	{
+					    		cout << " Name\t\t: " << Blue[i].getName() << endl;
+					    		cout << " Age\t\t: " << Blue[i].getAge() << endl;
+					    		cout << " Contact Number\t: " << Blue[i].getContact() << endl;
+					    		
+					    		cout << " " << endl;
+					    		cout << " New Contact Number : ";
+					    		cin >> emp_contact;
+					    		Blue[i].setContact(emp_contact);
+					    		
+					    		cout << " " << endl;
+					    		
+					    		compare_id = 0;
+					    	}
+					    	// End -- Search Data
+						}
+					}
+					infile.close();
+					// End -- Read Data From a File and Store It
+					
+					
+					// Write new update Data to the file
+					ofstream outfile("Blue_Data.txt");
+					
+					if(outfile.is_open())
+					{
+						for(int i=0; i<num_of_lines; i++)
+						{
+							outfile <<Blue[i].getJobType() << " "<< Blue[i].getId() << " " << Blue[i].getName() << " "
+							<< Blue[i].getDOB() << " " << Blue[i].getAge() << " " << Blue[i].getContact() << " " 
+							<< Blue[i].getEdu() << " " << Blue[i].getExp() << " " << Blue[i].getDateIn() << "\n";
+						}
 					}
 					
 					outfile.close();
-					
+					delete [] Blue;
+					// End -- Write new update Data to the file
 				}
 			}
 			
