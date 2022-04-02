@@ -261,7 +261,8 @@ class Executive : public Employee
 class BlueCollar : public Employee
 {
 	private:
-		float OT_rate;
+		float OT_rate, OT_pay;
+		int OT_hours;
 		
 	public:
 		BlueCollar()
@@ -271,6 +272,7 @@ class BlueCollar : public Employee
 			d = 50;
 			base_salary = 0;
 			nett_salary = 0;
+			OT_hours = 0;
 		}
 		
 		void calcBaseSalary()
@@ -287,7 +289,51 @@ class BlueCollar : public Employee
 			cout << " " << endl;
 		}
 		
+		void set_OtHours()
+		{
+			cout << " Enter OT Hours\t: ";
+			cin >> OT_hours;
+		}
 		
+		void calcOtPay()
+		{
+			OT_pay = (OT_hours*2)*(base_salary / (26*8));
+		}
+		
+		void calcRoughSalary()
+		{
+			rough_salary = salary + OT_pay;
+		}
+		
+		void ERF_Socso()
+		{
+			epf_socso = rough_salary*(0.09);
+		}
+		
+		void calcNett()
+		{
+			nett_salary = rough_salary - epf_socso;
+		}
+		
+		float get_RoughSalary()
+		{
+			return rough_salary;
+		}
+		
+		float get_BaseSalary()
+		{
+			return base_salary;
+		}
+		
+		float get_EpfSocso()
+		{
+			return epf_socso;
+		}
+		
+		float get_NettSalary()
+		{
+			return nett_salary;
+		}
 };
 
 
@@ -680,6 +726,41 @@ class Page
 										<<setw(8) << setprecision(2) << "RM" << Exec[i].get_EpfSocso()
 									    << setw(10) << setprecision(2) << "RM" << Exec[i].get_NettSalary() << "\n"; 
 							}
+						}
+						
+						num_of_lines = 0;
+						delete [] Exec;
+					}
+					
+					else
+					{
+						which_file = "Blue_Data.txt";
+						numOfLines(which_file);
+						
+						Blue = new BlueCollar[numOfLines];
+						
+						ifstream infile(which_file);
+						if(infile.is_open())
+						{
+							for(int i=0; i<num_of_lines; i++)
+							{
+								infile >> emp_jobType >> emp_id >> emp_name >> emp_dob >> emp_age >> 
+								emp_contact >> emp_edu >> emp_exp >> emp_start_work;
+								
+								Blue[i].setJobType(emp_jobType);
+								Blue[i].setId(emp_id);
+								Blue[i].setName(emp_name);
+								Blue[i].setAge(emp_age);
+						    	Blue[i].setExp(emp_exp);
+						    	Blue[i].calcBaseSalary();
+						    	
+						    	cout << fixed;
+						    	
+						    	cout << " Job Type\t: " << Blue[i].getJobType() << endl;
+								cout << " ID\t\t: " << Blue[i].getId() << endl;
+								cout << " Name\t\t: " << Blue[i].getName() << endl;
+								cout << " Base Salary\t: RM" << setw(8) << setprecision(2) << Blue[i].get_BaseSalary() << endl;
+								Blue[i].setBonus();
 						}
 					}
 				}
