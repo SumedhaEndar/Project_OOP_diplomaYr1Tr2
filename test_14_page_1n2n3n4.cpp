@@ -1,6 +1,5 @@
 #include<iostream>
 #include<iomanip>
-#include <conio.h>
 #include <fstream>
 #include <string>
 
@@ -652,7 +651,7 @@ int main()
 {
 	Page *page;
 	
-	
+	string space;
 	int menu_selection = 0;
 	
 	do
@@ -673,10 +672,12 @@ int main()
 		}
 		else
 		{
-			cout << " Press Space to the Home Page";
+			cout << " Press Enter to the Home Page";
 		}
 		
-		getch();
+		cin.ignore();
+		getline(cin,space);
+		
 		system("cls");
 		
 		delete page;
