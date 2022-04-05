@@ -880,6 +880,7 @@ class Page
 					outfile.close();
 					delete [] Emp;
 				}
+								
 				delete [] fired_ID;
 			}
 		}
